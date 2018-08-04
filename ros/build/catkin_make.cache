@@ -1,0 +1,2 @@
+traxxas_control
+-DCATKIN_DEVEL_PREFIX=/home/md/git-projects/traxxas_control/ros/devel -DCMAKE_INSTALL_PREFIX=/home/md/git-projects/traxxas_control/ros/install -G Unix Makefiles
