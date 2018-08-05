@@ -1,4 +1,4 @@
 <?xml version="1.0"?>
 <launch>
-    <node pkg="traxxas_control" type="taxxas_control.py" name="traxxas" output="screen" cwd="node"/>
+    <node pkg="traxxas_control" type="traxxas_controller.py" name="traxxas" output="screen" cwd="node"/>
 </launch>
