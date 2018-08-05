@@ -1,8 +1,0 @@
-prefix=/home/md/git-projects/traxxas_control/ros/install
-
-Name: traxxas_control
-Description: Description of traxxas_control
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/md/git-projects/traxxas_control/ros/install/lib 
-Requires: 
