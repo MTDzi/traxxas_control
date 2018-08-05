@@ -13,6 +13,9 @@
       <param name="baud" value="57600" />
   </node>
 
+  <!-- ZED -->
+  <include file="$(find zed_wrapper)/launch/zed.launch" />
+
   <!-- Traxxas Control -->
   <include file="$(find traxxas_control)/launch/traxxas_control.launch" />
 
