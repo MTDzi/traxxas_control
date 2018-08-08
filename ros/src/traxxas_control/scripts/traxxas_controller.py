@@ -5,7 +5,7 @@ import numpy as np
 import cv2
 
 import rospy
-from std_msgs.msg import Int16
+from std_msgs.msg import Int16, Time
 from sensor_msgs.msg import Joy, Image
 from cv_bridge import CvBridge, CvBridgeError
 
@@ -15,6 +15,7 @@ class JoyController:
     def __init__(self):
         self.joy_msg = None
         self.zed_depth_msg = None
+        self.time_after_pub = None
 
         self.bridge = CvBridge()
 	self.image_pub = rospy.Publisher("image_topic", Image)
@@ -24,13 +25,14 @@ class JoyController:
 
         rospy.Subscriber('/joy', Joy, self._joy_cb)
         rospy.Subscriber('/zed/depth/depth_registered', Image, self._zed_depth_cb)
+        rospy.Subscriber('/chatter', Time, self._time_cb)
 
         rospy.init_node('traxxas_controler')
 
         self.loop()
 
     def loop(self):
-        rate = rospy.Rate(50)
+        rate = rospy.Rate(100)
         start_time = 0
 
         while not rospy.is_shutdown():
@@ -43,11 +45,17 @@ class JoyController:
             if self.joy_msg is not None:
                 axes = self.joy_msg.axes
 
-                angle = int(90 + degrees(asin(axes[0])))
-                throt = int(102*np.sign(axes[3])*sqrt(abs(axes[3])))
+                angle = axes[0]
+                throt = axes[3]
+                angle = int(90 + degrees(asin(angle)))
+                throt = int(102*np.sign(throt)*sqrt(abs(throt)))
 
                 self.pub_servo.publish(angle)
                 self.pub_esc.publish(throt)
+
+            if self.time_after_pub is not None:
+                now = rospy.Time.now().to_sec()
+                rospy.logwarn('time diff = {}'.format(now - self.time_after_pub))
 
 
 
@@ -63,7 +71,9 @@ class JoyController:
            print(e)
  
         self.zed_depth_msg = cv_image
- 
+
+    def _time_cb(self, msg):
+        self.time_after_pub = msg.data.to_sec()
 
 
 if __name__ == '__main__':
