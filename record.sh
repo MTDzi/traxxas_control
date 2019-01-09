@@ -1,1 +1,1 @@
-rosbag record -O /media/ubuntu/3C52-B9FD/bags/dupa.bag --limit 1000 --lz4 /servo /esc /zed/depth/depth_registered
+rosbag record  -o /home/ubuntu/sdcard/bags --lz4 /joy /camera/depth/image_rect_raw

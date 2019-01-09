@@ -14,3 +14,19 @@ rosrun joy joy_node
 
 # ZED
 /usr/local/zed/tools
+
+
+# Realsense
+In the /home/ubuntu/git-projects/buildLibrealsense2TX directory I modified the installLiibrealsense.sh so that the version is 2.16.0 (required by the /home/ubuntu/git-projects/traxxas_control/ros/src/realsense2_camera repo)
+After that, after `source devel/setup.sh`:
+roslaunch realsense2_camera rs_rgbd.launch
+
+
+# Logitech f310 pad
+sudo apt install xboxdrv
+i zeby wystawic /dev/input/js0
+sudo xboxdrv --detach-kernel-driver
+
+
+# Roslaunch
+roslaunch launch/traxxas.launch

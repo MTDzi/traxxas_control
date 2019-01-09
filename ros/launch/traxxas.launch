@@ -14,9 +14,13 @@
   </node>
 
   <!-- ZED -->
-  <include file="$(find zed_wrapper)/launch/zed.launch" />
+  <!--- <include file="$(find zed_wrapper)/launch/zed.launch" /> -->
 
   <!-- Traxxas Control -->
-  <include file="$(find traxxas_control)/launch/traxxas_control.launch" />
+  <include file="$(find traxxas_control)/launch/traxxas_control.launch" /> 
+
+
+  <!-- RealSense Camera -->
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch" />
 
 </launch>
