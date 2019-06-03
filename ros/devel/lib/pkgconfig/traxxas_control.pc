@@ -1,8 +1,8 @@
-prefix=/home/ubuntu/git-projects/traxxas_control/ros/devel
+prefix=/home/ubuntu/sdcard/git-projects/traxxas_control/ros/devel
 
 Name: traxxas_control
 Description: Description of traxxas_control
 Version: 0.0.0
 Cflags: 
-Libs: -L/home/ubuntu/git-projects/traxxas_control/ros/devel/lib 
+Libs: -L/home/ubuntu/sdcard/git-projects/traxxas_control/ros/devel/lib 
 Requires: 
