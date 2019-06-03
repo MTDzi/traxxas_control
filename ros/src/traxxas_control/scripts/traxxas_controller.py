@@ -3,19 +3,20 @@
 from math import asin, degrees, sqrt
 import numpy as np
 from random import normalvariate
-#import cv2
 
 import rospy
 from std_msgs.msg import Int16, Time
 from sensor_msgs.msg import Joy, Image
-#from cv_bridge import CvBridge, CvBridgeError
+
+from traxxas_control.msg import servo_esc_coeffs
 
 
 class JoyController:
 
     def __init__(self):
-        self.pub_servo = rospy.Publisher('/servo', Int16, queue_size=1)
-        self.pub_esc = rospy.Publisher('/esc', Int16, queue_size=1)
+        self.pub_servo = rospy.Publisher('/servo', Int16, queue_size=10)
+        self.pub_esc = rospy.Publisher('/esc', Int16, queue_size=10)
+        self.pub_servo_esc_coeffs = rospy.Publisher('/servo_esc_coeffs', servo_esc_coeffs, queue_size=10)
 
         self.servo_neutral = 1479
         self.esc_neutral = 1500
@@ -25,7 +26,7 @@ class JoyController:
 
         rospy.Subscriber('/joy', Joy, self._joy_cb, queue_size=1)
 
-        rospy.init_node('traxxas_controler')
+        rospy.init_node('traxxas_controller')
 
 
     # Callbacks
@@ -66,6 +67,13 @@ class JoyController:
 
         self.pub_servo.publish(angle)
         self.pub_esc.publish(throt)
+
+        msg = servo_esc_coeffs()
+        msg.servo_neutral = self.servo_neutral
+        msg.esc_neutral = self.esc_neutral
+        msg.angle_mult = self.angle_mult
+        msg.throt_mult = self.throt_mult
+        self.pub_servo_esc_coeffs.publish(msg)
 
 
 if __name__ == '__main__':
