@@ -1,11 +1,16 @@
 <?xml version="1.0"?>
 <launch>
 
+  <!-- RealSense Camera -->
+    <include file="$(find realsense2_camera)/launch/rs_rgbd_MD.launch" />
+
+
   <!-- Joy Node -->
   <node respawn="true" pkg="joy" type="joy_node" name="turtle_joy" >
       <param name="dev" type="string" value="/dev/input/js0" />
       <param name="deadzone" value="0.12" />
   </node>
+
 
   <!-- ROSSerial Python -->
   <node name="serial_node" pkg="rosserial_python" type="serial_node.py">

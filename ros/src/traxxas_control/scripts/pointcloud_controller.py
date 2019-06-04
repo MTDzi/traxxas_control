@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 
+import time
+
 import pandas as pd
 import numpy as np
+
+from numba import jit
 
 import rospy
 from std_msgs.msg import Int16, Time
@@ -47,10 +51,16 @@ class PointcloudController:
         self.shape_x = int(self.grid_multiplier*(self.max_0 - self.min_0))
         self.shape_y = int(self.grid_multiplier*(self.max_2 - self.min_2))
 
+    @jit
     def _pointcloud_cb(self, msg):
+        start_time = time.time()
         dataframe = pd.DataFrame(
             pc2.read_points(msg, skip_nans=True, field_names=('x', 'y', 'z'))
         )
+        time1 = time.time()
+        delta = time1 - start_time
+        rospy.loginfo('Reading points into dataframe took: {:.1f}ms'.format(1000*delta))
+
         dataframe = dataframe.rename(self.colname_map, axis=1)
         condition_on_x = (self.min_0 < dataframe['x']) & (dataframe['x'] < self.max_0)
         condition_on_y = (self.min_2 < dataframe['y']) & (dataframe['y'] < self.max_2)
@@ -61,6 +71,9 @@ class PointcloudController:
         # Minus because the Z axis is pointed into the ground
         avg_height = -dataframe.groupby(['y', 'x'])['z'].mean()
         avg_height = avg_height.unstack()
+        time2 = time.time()
+        delta = time2 - time1
+        rospy.loginfo('Groupby and unstack took: {:.1f}ms'.format(1000*delta))
 
         try:
             waypoints, frame = find_waypoints(
@@ -75,7 +88,14 @@ class PointcloudController:
             rospy.logwarn(str(e))
             return
 
+        time3 = time.time()
+        delta = time3 - time2
+        rospy.loginfo('Finding waypoints took: {:.1f}ms'.format(1000*delta))
+
         angle = find_angle(waypoints)
+        time4 = time.time()
+        delta = time4 - time3
+        rospy.loginfo('Finding angle took: {:.1f}ms'.format(1000*delta))
 
         angle /= self.max_steering_angle
         angle = np.clip(angle, -1, 1)
