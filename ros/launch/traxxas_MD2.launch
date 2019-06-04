@@ -18,7 +18,7 @@
   <!--- <include file="$(find zed_wrapper)/launch/zed.launch" /> -->
 
   <!-- Traxxas Control -->
-  <include file="$(find traxxas_control)/launch/traxxas_control.launch" /> 
+  <include file="$(find traxxas_control)/launch/joy_control.launch" /> 
 
 
   <!-- RealSense Camera -->

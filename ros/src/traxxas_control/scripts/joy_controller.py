@@ -2,11 +2,10 @@
 
 from math import asin, degrees, sqrt
 import numpy as np
-from random import normalvariate
 
 import rospy
-from std_msgs.msg import Int16, Time
-from sensor_msgs.msg import Joy, Image
+from std_msgs.msg import Int16
+from sensor_msgs.msg import Joy
 
 from traxxas_control.msg import servo_esc_coeffs
 
@@ -24,9 +23,9 @@ class JoyController:
         self.angle_mult = 600 #80 # 600
         self.throt_mult = 200 # 80 # 200
 
-        rospy.Subscriber('/joy', Joy, self._joy_cb, queue_size=1)
+        rospy.Subscriber('/joy', Joy, self._joy_cb, queue_size=10)
 
-        rospy.init_node('traxxas_controller')
+        rospy.init_node('joy_controller')
 
 
     # Callbacks

@@ -67,14 +67,14 @@ set(traxxas_control_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(traxxas_control_SOURCE_PREFIX /home/ubuntu/sdcard/git-projects/traxxas_control/ros/src/traxxas_control)
-  set(traxxas_control_DEVEL_PREFIX /home/ubuntu/sdcard/git-projects/traxxas_control/ros/devel)
+  set(traxxas_control_SOURCE_PREFIX /home/md/Desktop/extract_data_from_rosbag/traxxas_control/ros/src/traxxas_control)
+  set(traxxas_control_DEVEL_PREFIX /home/md/Desktop/extract_data_from_rosbag/traxxas_control/ros/devel)
   set(traxxas_control_INSTALL_PREFIX "")
   set(traxxas_control_PREFIX ${traxxas_control_DEVEL_PREFIX})
 else()
   set(traxxas_control_SOURCE_PREFIX "")
   set(traxxas_control_DEVEL_PREFIX "")
-  set(traxxas_control_INSTALL_PREFIX /home/ubuntu/sdcard/git-projects/traxxas_control/ros/install)
+  set(traxxas_control_INSTALL_PREFIX /home/md/Desktop/extract_data_from_rosbag/traxxas_control/ros/install)
   set(traxxas_control_PREFIX ${traxxas_control_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(traxxas_control_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/ubuntu/sdcard/git-projects/traxxas_control/ros/devel/include " STREQUAL " ")
+if(NOT "/home/md/Desktop/extract_data_from_rosbag/traxxas_control/ros/devel/include " STREQUAL " ")
   set(traxxas_control_INCLUDE_DIRS "")
-  set(_include_dirs "/home/ubuntu/sdcard/git-projects/traxxas_control/ros/devel/include")
+  set(_include_dirs "/home/md/Desktop/extract_data_from_rosbag/traxxas_control/ros/devel/include")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")
@@ -110,7 +110,7 @@ if(NOT "/home/ubuntu/sdcard/git-projects/traxxas_control/ros/devel/include " STR
         message(FATAL_ERROR "Project 'traxxas_control' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'traxxas_control' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/ubuntu/sdcard/git-projects/traxxas_control/ros/src/traxxas_control/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'traxxas_control' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/md/Desktop/extract_data_from_rosbag/traxxas_control/ros/src/traxxas_control/${idir}'.  ${_report}")
     endif()
     _list_append_unique(traxxas_control_INCLUDE_DIRS ${include})
   endforeach()
@@ -129,7 +129,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/ubuntu/sdcard/git-projects/traxxas_control/ros/devel/lib;/home/ubuntu/sdcard/git-projects/traxxas_control/ros/devel/lib;/opt/ros/kinetic/lib)
+    foreach(path /home/md/Desktop/extract_data_from_rosbag/traxxas_control/ros/devel/lib;/opt/ros/kinetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
