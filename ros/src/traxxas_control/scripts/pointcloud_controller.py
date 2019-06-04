@@ -12,7 +12,7 @@ from std_msgs.msg import Int16, Time
 from sensor_msgs.msg import Joy, PointCloud2
 import sensor_msgs.point_cloud2 as pc2
 
-from utils import find_waypoints, find_angle
+from utils import pointcloud2_to_array, find_waypoints, find_angle
 
 
 class PointcloudController:
@@ -51,12 +51,15 @@ class PointcloudController:
         self.shape_x = int(self.grid_multiplier*(self.max_0 - self.min_0))
         self.shape_y = int(self.grid_multiplier*(self.max_2 - self.min_2))
 
-    @jit
     def _pointcloud_cb(self, msg):
         start_time = time.time()
         dataframe = pd.DataFrame(
-            pc2.read_points(msg, skip_nans=True, field_names=('x', 'y', 'z'))
+            # pc2.read_points(msg, skip_nans=True, field_names=('x', 'y', 'z'))
+            pointcloud2_to_array(msg)
         )
+
+        import pdb; pdb.set_trace()
+
         time1 = time.time()
         delta = time1 - start_time
         rospy.loginfo('Reading points into dataframe took: {:.1f}ms'.format(1000*delta))

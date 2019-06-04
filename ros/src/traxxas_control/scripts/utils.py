@@ -3,6 +3,22 @@ import pandas as pd
 from operator import itemgetter
 from numpy.linalg import norm
 
+import struct
+
+
+fmt_full = ''
+
+
+def pointcloud2_to_array(msg):
+    global fmt_full
+    if not fmt_full:
+        fmt = 'fff' + 20*'x'  # xyz + NEVERMIND
+        fmt_full = ('>' if msg.is_bigendian else '<') + fmt*msg.width*msg.height
+
+    unpacker = struct.Struct(fmt_full)
+    unpacked = np.asarray(unpacker.unpack_from(msg.data))
+    return unpacked.reshape(msg.height*msg.width, 3)
+
 
 def find_waypoints(
     avg_height,
