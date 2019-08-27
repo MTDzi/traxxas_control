@@ -4,3 +4,9 @@
 [submodule "ros/src/realsense"]
 	path = ros/src/realsense
 	url = https://github.com/intel-ros/realsense
+[submodule "ros/src/ros_numpy"]
+	path = ros/src/ros_numpy
+	url = https://github.com/eric-wieser/ros_numpy
+[submodule "ros/src/traxxas_control/scripts/waypoints_finders"]
+	path = ros/src/traxxas_control/scripts/waypoints_finders
+	url = https://github.com/MTDzi/waypoints_finders
